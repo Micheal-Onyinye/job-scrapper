@@ -1,0 +1,6 @@
+_pycache__
+draft.md
+.env
+venv/
+data/
+logs/
