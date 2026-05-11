@@ -6,9 +6,7 @@ import time
 from loguru import logger
 from config import CACHE_FILE, CACHE_EXPIRY_MINUTES
 
-# ---------------------------
-# Caching logic
-# ---------------------------
+
 def get_cached_html():
     if not os.path.exists(CACHE_FILE):
         return None
@@ -27,9 +25,7 @@ def save_cache(html):
         f.write(html)
     logger.info("HTML saved to cache.")
 
-# ---------------------------
-# Convert relative date → days
-# ---------------------------
+
 def convert_to_days(job_date):
     if not job_date:
         return 999
@@ -50,9 +46,7 @@ def convert_to_days(job_date):
         return 999
 
 
-# ---------------------------
-# Clean job data
-# ---------------------------
+
 def clean_job(title, company, link, job_date):
 
     if not title or not link:
@@ -90,9 +84,7 @@ def remove_duplicates(jobs):
 
     return unique_jobs
 
-# ---------------------------
-# Main scraper
-# ---------------------------
+
 def scrape_jobs():
     url = "https://remoteok.com/remote-python-jobs"
     jobs = []
@@ -109,7 +101,6 @@ def scrape_jobs():
 
                 logger.info(f"Page loaded: {page.title()}")
 
-                # Wait for any table or specific job markers
                 try:
                     page.wait_for_selector("tr.job", timeout=10000)
                 except:
@@ -122,7 +113,6 @@ def scrape_jobs():
             logger.error(f"Playwright error: {e}")
             return jobs
     soup = BeautifulSoup(html_content, "html.parser")
-    # RemoteOK sometimes uses id="jobsboard" or class="jobsboard"
     table = soup.find("table", id="jobsboard") or soup.find("table", class_="jobsboard")
 
     if not table:

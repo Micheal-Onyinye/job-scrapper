@@ -7,7 +7,7 @@ DB_PATH = os.path.join(DATA_DIR, "jobs.db")
 def get_connection():
     """Returns a connection to the SQLite database."""
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # This allows accessing columns by name
+    conn.row_factory = sqlite3.Row  
     return conn
 
 def init_db():
@@ -18,7 +18,6 @@ def init_db():
     conn = get_connection()
     cursor = conn.cursor()
     
-    # Create the jobs table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS jobs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

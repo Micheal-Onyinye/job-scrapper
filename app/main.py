@@ -8,7 +8,6 @@ from database import init_db
 def main():
     logger.info("Starting Job Scraper with SQLite Storage...")
 
-    # Ensure database is initialized
     init_db()
 
     # 1. Scrape jobs from the source
